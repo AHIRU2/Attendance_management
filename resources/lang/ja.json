@@ -1,0 +1,21 @@
+{
+    "Whoops! Something went wrong.": "以下のエラーが発生しました。",
+    "The :attribute must be at least :length characters and contain at least one uppercase character.": ":attributeには:length文字以上の文字列を指定し、１つ以上の大文字を含んでください。",
+    "The :attribute must be at least :length characters and contain at least one number.": ":attributeには:length文字以上の文字列を指定し、１つ以上の数字を含んでください。",
+    "The :attribute must be at least :length characters and contain at least one special character.": ":attributeには:length文字以上の文字列を指定し、１つ以上の特殊文字を含んでください。",
+    "The :attribute must be at least :length characters and contain at least one uppercase character and one number.": ":attributeには:length文字以上の文字列を指定し、１つ以上の大文字と、数字を含んでください。",
+    "The :attribute must be at least :length characters and contain at least one uppercase character and one special character.": ":attributeには:length文字以上の文字列を指定し、１つ以上の大文字と、特殊文字を含んでください。",
+    "The :attribute must be at least :length characters and contain at least one uppercase character, one number, and one special character.": ":attributeには:length文字以上の文字列を指定し、１つ以上の大文字と、数字、特殊文字を含んでください。",
+    "The :attribute must be at least :length characters.": ":attributeには:length文字以上の文字列を指定してください。",
+    "Name": "ユーザー名",
+    "E-Mail Address": "メールアドレス",
+    "userid": "ユーザーID",
+    "Required at login": "ログイン時に必要",
+    "Password": "パスワード",
+    "Confirm Password": "パスワード(確認用)",
+    "Already registered?": "既に登録済みですか？",
+    "Register": "登録する",
+    "Remember me": "次回から自動ログインする",
+    "Forgot your password?": "パスワードを忘れた場合",
+    "Login": "ログイン"
+}
