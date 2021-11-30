@@ -62,7 +62,7 @@ body {
   line-height: 1.6;
   color: #212529;
   text-align: left;
-  background-color: #f8fafc;
+  background-color: #F2F2F2;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -7446,9 +7446,9 @@ button.bg-dark:focus {
   white-space: normal;
 }
 
-.shadow-sm {
+/* .shadow-sm {
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-}
+} */
 
 .shadow {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
@@ -10029,7 +10029,30 @@ h3 {
 }
 
 
-/* 追加 login*/
+
+/*------------------------ 追加 ------------------------*/
+
+/* -------fotter------- */
+.wrapper{
+  min-height: 100vh;
+  position: relative;/*←相対位置*/
+  padding-bottom: 120px;/*←footerの高さ*/
+  box-sizing: border-box;/*←全て含めてmin-height:100vhに*/
+}
+
+footer{
+  width: 100%;
+  background-color: #ffffff;
+  text-align: center;
+  height: 40px;
+padding-top: 10px;
+
+position: absolute;/*←絶対位置*/
+  bottom: 0; /*下に固定*/
+}
+
+
+/* --------login-------- */
 .input-form{
   text-align: center;
 }
@@ -10063,5 +10086,36 @@ h3 {
   color: #6E757C;
 }
 
+/* ------register------- */
+.register-form{
+  text-align: center;
+}
 
+.register-label{
+  width: 90%;
+  margin: auto;
+}
 
+.register-button{
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+  height: 35px;
+  margin: auto;
+  border-radius: 5px;
+  background-color: #274ED5;
+  color: #ffffff;
+  width: 100%;
+  
+}
+
+.register-input,.link-login-label{
+margin-top: 20px;
+}
+
+.link-login{
+  margin-bottom: 0px;
+  color: #6E757C;
+}
