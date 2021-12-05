@@ -15,11 +15,12 @@ class CreateAttendanceTable extends Migration
     {
         Schema::create('attendance', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('user_id')->constrained('employees');
+            $table->foreignId('user_id')->constrained('users');
             $table->date('date');
-            $table->time('start_time')->nullable();
+            $table->time('start_time');
             $table->time('end_time')->nullable();
             $table->time('rest_time')->nullable();
+            $table->timestamps();
         });
     }
 
