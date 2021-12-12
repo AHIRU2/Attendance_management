@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
+use App\Models\Attendance;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +20,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+Route::post('/attendance/start', [AttendanceController::class, 'punchIn'])->name('/attendance/start');
+Route::post('/attendance/end', [AttendanceController::class, 'punchOut'])->name('/attendance/end');
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

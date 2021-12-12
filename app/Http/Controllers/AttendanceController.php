@@ -24,9 +24,9 @@ class AttendanceController extends Controller
         $newTimestampDay = Carbon::today();
 
         // 同日付の出勤打刻で、かつ直前のTimestampの退勤打刻がされていない場合エラーを吐き出す。
-        if (($oldTimestampDay == $newTimestampDay) && (empty($oldTimestamp->punchOut))) {
-            return redirect()->back()->with('error', 'すでに出勤打刻がされています。');
-        }
+        // if (($oldTimestampDay == $newTimestampDay) && (empty($oldTimestamp->punchOut))) {
+        //     return redirect()->back()->with('error', 'すでに出勤打刻がされています。');
+        // }
 
         $timestamp = Attendance::create([
             'user_id' => $user->id,

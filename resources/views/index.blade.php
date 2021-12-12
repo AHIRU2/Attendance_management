@@ -9,4 +9,22 @@
     </div>
 </div>
 
-@endsection
+<div class="button-form">
+    <ul>
+        <li>
+            <form action="{{route('/attendance/start')}}" method="POST">
+                @csrf
+                @method('POST')
+                <button type="submit" class="btn_puchin">出勤</button>
+            </form>
+        </li>
+        <li>
+            <form action="{{route('/attendance/end')}}" method="POST">
+                @csrf
+                @method('POST')
+                <button type="submit" class="btn_puchout">退勤</button>
+            </form>
+        </li>
+    </ul>
+
+    @endsection
