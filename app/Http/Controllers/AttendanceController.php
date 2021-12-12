@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Attendance;
+use App\Models\Rest;
 use Carbon\Carbon;
 
 class AttendanceController extends Controller
@@ -50,5 +51,39 @@ class AttendanceController extends Controller
         ]);
 
         return redirect()->back()->with('my_status', '退勤打刻が完了しました。');
+    }
+
+
+    public function restPunchIn()
+    {
+        $user = Auth::user();
+
+        $startattendance = Attendance::where('user_id', $user->id)->latest()->first();
+
+
+
+
+        $timestamp = Rest::create([
+            'user_id' => $user->id,
+            'start_time' => Carbon::now(),
+        ]);
+
+        return redirect()->back()->with('my_status', '休憩開始打刻が完了しました。');
+    }
+
+    public function restPunchOut()
+    {
+        $user = Auth::user();
+        $timestamp = Rest::where('user_id', $user->id)->latest()->first();
+
+        if (!empty($timestamp->punchOut)) {
+            return redirect()->back()->with('error', '既に休憩終了の打刻がされているか、休憩開始が打刻されていません。');
+        }
+
+        $timestamp->update([
+            'end_time' => Carbon::now()
+        ]);
+
+        return redirect()->back()->with('my_status', '休憩終了時間打刻が完了しました。');
     }
 }

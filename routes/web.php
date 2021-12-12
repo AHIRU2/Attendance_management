@@ -23,5 +23,7 @@ Auth::routes();
 
 Route::post('/attendance/start', [AttendanceController::class, 'punchIn'])->name('/attendance/start');
 Route::post('/attendance/end', [AttendanceController::class, 'punchOut'])->name('/attendance/end');
+Route::post('/attendance/reststart', [AttendanceController::class, 'restPunchIn'])->name('/attendance/reststart');
+Route::post('/attendance/restend', [AttendanceController::class, 'restPunchOut'])->name('/attendance/restend');
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
