@@ -11,7 +11,7 @@ class Rest extends Model
 
     protected $table = 'rest';
 
-    protected $fillable = ['user_id', 'start_time', 'end_time'];
+    protected $fillable = ['user_id', 'attendance_id', 'start_time', 'end_time'];
 
     /**
      * ユーザー関連付け

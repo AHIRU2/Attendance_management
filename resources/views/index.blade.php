@@ -15,30 +15,52 @@
             <form action="{{route('/attendance/start')}}" method="POST">
                 @csrf
                 @method('POST')
-                <button type="submit" class="btn_puchin">出勤</button>
+                <button type="submit" id="btn_punchin">出勤</button>
             </form>
         </li>
         <li>
             <form action="{{route('/attendance/end')}}" method="POST">
                 @csrf
                 @method('POST')
-                <button type="submit" class="btn_puchout">退勤</button>
+                <button type="submit" id="btn_punchout">退勤</button>
             </form>
         </li>
         <li>
             <form action="{{route('/attendance/reststart')}}" method="POST">
                 @csrf
                 @method('POST')
-                <button type="submit" class="btn_rest_puchin">休憩開始</button>
+                <button type="submit" id="btn_rest_punchin">休憩開始</button>
             </form>
         </li>
         <li>
             <form action="{{route('/attendance/restend')}}" method="POST">
                 @csrf
                 @method('POST')
-                <button type="submit" class="btn_rest_puchout">休憩終了</button>
+                <button type="submit" id="btn_rest_punchout">休憩終了</button>
             </form>
         </li>
     </ul>
+    <script>
+        // function setPunchinButton() {
+        //     let setbuttonPunchinOff = $('[id^="btn_punchin"]');
+        //     for (i = 0; i < setbuttonPunchinOff.length; i++) {
+        //         $('#' + setbuttonPunchinOff[i].id).prop("disabled", true);
+        //     }
+        //     let setbuttonPunchOutOff = $('[id^="btn_punchout"]');
+        //     for (i = 0; i < setbuttonPunchOutOff.length; i++) {
+        //         $('#' + setbuttonPunchOutOff[i].id).prop("disabled", false);
+        //     }
+        // }
 
+        // function setPunchOutButton() {
+        //     let setbuttonPunchOutOff = $('[id^="btn_punchout"]');
+        //     for (i = 0; i < setbuttonPunchOutOff.length; i++) {
+        //         $('#' + setbuttonPunchOutOff[i].id).prop("disabled", true);
+        //     }
+        //     let setbuttonPunchinOff = $('[id^="btn_punchin"]');
+        //     for (i = 0; i < setbuttonPunchinOff.length; i++) {
+        //         $('#' + setbuttonPunchinOff[i].id).prop("disabled", false);
+        //     }
+        // }
+    </script>
     @endsection
