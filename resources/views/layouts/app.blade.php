@@ -55,6 +55,8 @@
                             @endif -->
                         @else
                         <li class="nav-item dropdown">
+                            <a class="nav-link" href="/">ホーム</a>
+                            <a class="nav-link" href="/attendance/attendance">日付一覧</a>
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 ログアウト
                             </a>

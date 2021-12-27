@@ -10119,3 +10119,10 @@ margin-top: 20px;
   margin-bottom: 0px;
   color: #6E757C;
 }
+
+
+/* ------login------- */
+.nav-link{
+  display: inline-block;
+  margin: 0 10px;
+}

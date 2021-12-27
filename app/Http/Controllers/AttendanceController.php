@@ -101,12 +101,16 @@ class AttendanceController extends Controller
 
         //休憩時間合算
         //attendanceテーブルの休憩時間現在値取得
-        $restdata = Attendance::select(DB::raw('rest_time'))->where('id', $timestamp->id)->value('rest_time');
+        // print($timestamp->id);
+        $restdata = Attendance::select(DB::raw('rest_time'))->where('id', $timestamp->attendance_id)->value('rest_time');
 
-        $sum = Attendance::select(DB::raw('addtime($restdata, $data) as sum'))->value('sum');
+        // print($restdata);
 
+
+        $sum = DB::select('select addtime(:restdata, :data) as sum', ['restdata' => $restdata, 'data' => $data]);
+
+        // var_dump($sum);
         print($sum);
-
 
         $attendance->update([
             'rest_time' => $sum
@@ -115,7 +119,8 @@ class AttendanceController extends Controller
         return redirect()->back()->with('my_status', '休憩終了時間打刻が完了しました。');
     }
 
-    public function culcRestTime()
+    public function AttendanceList()
     {
+        return view('attendance');
     }
 }

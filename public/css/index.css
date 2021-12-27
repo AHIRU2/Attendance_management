@@ -1,4 +1,34 @@
 .user-title{
 text-align: center;
 font-size: 18px;
+font-weight: bold;
+margin: 20px 0;
+}
+
+.btn-list{
+    list-style-type: none;
+    display: flex; /* flexbox */
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+}
+
+.timebtn{
+    margin: 25px;
+    width: 41%;
+    height: 200px;
+    background: #fff;
+}
+
+#btn_punchin,#btn_rest_punchin{
+    margin-left: 0;
+}
+
+.btn{
+    font-weight: bold;
+    font-size: 25px;
+    width: 100%;
+    height: 200px;
+    line-height: 100px;
 }
