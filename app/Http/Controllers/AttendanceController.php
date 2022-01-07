@@ -110,17 +110,37 @@ class AttendanceController extends Controller
         $sum = DB::select('select addtime(:restdata, :data) as sum', ['restdata' => $restdata, 'data' => $data]);
 
         // var_dump($sum);
-        print($sum);
+        print($sum[0]->sum);
 
         $attendance->update([
-            'rest_time' => $sum
+            'rest_time' => $sum[0]->sum
         ]);
 
         return redirect()->back()->with('my_status', '休憩終了時間打刻が完了しました。');
     }
 
-    public function AttendanceList()
+    // public function AttendanceList(Request $request)
+    // {
+    //     $user = Auth::user();
+    //     $date = Carbon::today()->format("Y-m-d");
+    //     $items = Attendance::Join('users', 'attendance.user_id', '=', 'users.id')->where('attendance.user_id', '=', $user->id)->pagenate(5);
+    //     // $items = DB::table('attendance')->join('users', 'attendance.user_id', '=', 'users.id')->where('user_id', $user->id)->get();
+    //     print($items);
+    //     // $timestamps = Attendance::where('user_id', $user->id)->where('start_time', $date);
+    //     //SQL->select * from attendance where date_format(start_time,'%Y-%m-%d')=date_format(now(),'%Y-%m-%d');
+    //     // $attendance_data = Attendance::select('start_time')->get();
+    //     // $users = Attendance::Join('users', 'attendance.user_id', '=', 'users.id')->where('start_taime', $date)->get();
+    //     // $items = Attendance::Pagenate(5);
+    //     // return view('attendance', compact('users', 'date', 'items', 'attendance_date'));
+    //     // dd($timestamps);
+    //     return view('attendance', ['today' => $date], ['items', $items]);
+    // }
+
+    public function AttendanceList(Request $request)
     {
-        return view('attendance');
+        $user = Auth::user();
+        $date = Carbon::today()->format("Y-m-d");
+        $items = Attendance::Join('users', 'attendance.user_id', '=', 'users.id')->Paginate(3);
+        return view('attendance', ['today' => $date], compact('items'));
     }
 }
