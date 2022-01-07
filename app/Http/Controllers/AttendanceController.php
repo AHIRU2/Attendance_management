@@ -12,6 +12,33 @@ use Carbon\Carbon;
 
 class AttendanceController extends Controller
 {
+    public function LoginAttendance()
+    {
+        $user = Auth::user();
+        $date = Carbon::today()->format("Y-m-d");
+        $timestamp = Attendance::where('user_id', $user->id)->latest()->first();
+        $lastEndTime = $timestamp->end_time;
+        $lastDateTime = $timestamp->start_time;
+        $lastDate = date("Y-m-d", strtotime(($lastDateTime)));
+
+        //var_dump($lastDate, $date);
+
+        if ($lastEndTime == null && $lastDate != $date) {
+            $timestamp->update([
+                'end_time' => Carbon::parse($lastDateTime)->endOfDay()
+            ]);
+
+            $timestamp = Attendance::create([
+                'user_id' => $user->id,
+                'start_time' => Carbon::today(),
+                'rest_time' => '00:00:00'
+            ]);
+        }
+
+        return view('index');
+    }
+
+
     //勤務開始処置
     public function punchIn()
     {
