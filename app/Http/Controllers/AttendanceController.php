@@ -23,6 +23,7 @@ class AttendanceController extends Controller
 
         //var_dump($lastDate, $date);
 
+        //勤怠開始してから日付を跨いだ場合、勤怠開始時と同日の23:59:59をend_timeに挿入し、ログイン時の日時をstart_timeへ挿入
         if ($lastEndTime == null && $lastDate != $date) {
             $timestamp->update([
                 'end_time' => Carbon::parse($lastDateTime)->endOfDay()
@@ -167,7 +168,7 @@ class AttendanceController extends Controller
     {
         $user = Auth::user();
         $date = Carbon::today()->format("Y-m-d");
-        $items = Attendance::Join('users', 'attendance.user_id', '=', 'users.id')->Paginate(3);
+        $items = Attendance::Join('users', 'attendance.user_id', '=', 'users.id')->whereDate('start_time', $date)->Paginate(10);
         return view('attendance', ['today' => $date], compact('items'));
     }
 }
