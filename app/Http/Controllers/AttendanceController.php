@@ -82,6 +82,14 @@ class AttendanceController extends Controller
                 'end_time' => Carbon::now()
             ]);
 
+            $data = Attendance::select(DB::raw('timediff(end_time,start_time) as attendancetime'))->where('id', $timestamp->id)->value('attendancetime');
+
+            print($data);
+
+            $timestamp->update([
+                'attendance_time' => $data
+            ]);
+
             return redirect()->back()->with('my_status', '退勤打刻が完了しました。');
         }
     }

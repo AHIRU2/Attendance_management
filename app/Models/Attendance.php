@@ -10,7 +10,7 @@ class Attendance extends Model
     use HasFactory;
     protected $table = 'attendance';
 
-    protected $fillable = ['user_id', 'start_time', 'end_time', 'rest_time'];
+    protected $fillable = ['user_id', 'start_time', 'end_time', 'rest_time', 'attendance_time'];
 
     /**
      * ユーザー関連付け

@@ -22,21 +22,24 @@
             <form action="{{route('/attendance/end')}}" method="POST">
                 @csrf
                 @method('POST')
-                <button type="submit" id="btn_punchout" class="btn" disabled>勤務終了</button>
+                <button type="submit" id="btn_punchout" class="btn">勤務終了</button>
+                <!-- <button type="submit" id="btn_punchout" class="btn" disabled>勤務終了</button> -->
             </form>
         </li>
         <li class="timebtn" id="btn_rest_punchin">
             <form action="{{route('/attendance/reststart')}}" method="POST">
                 @csrf
                 @method('POST')
-                <button type="submit" id="btn_rest_punchin" class="btn" disabled>休憩開始</button>
+                <button type="submit" id="btn_rest_punchin" class="btn">休憩開始</button>
+                <!-- <button type="submit" id="btn_rest_punchin" class="btn" disabled>休憩開始</button> -->
             </form>
         </li>
         <li class="timebtn" id="btn_rest_punchout">
             <form action="{{route('/attendance/restend')}}" method="POST">
                 @csrf
                 @method('POST')
-                <button type="submit" id="btn_rest_punchout" class="btn" disabled>休憩終了</button>
+                <button type="submit" id="btn_rest_punchout" class="btn">休憩終了</button>
+                <!-- <button type="submit" id="btn_rest_punchout" class="btn" disabled>休憩終了</button> -->
             </form>
         </li>
     </ul>

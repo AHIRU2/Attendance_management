@@ -19,6 +19,7 @@ class CreateAttendanceTable extends Migration
             $table->datetime('start_time');
             $table->datetime('end_time')->nullable();
             $table->time('rest_time')->nullable();
+            $table->time('attendance_time')->nullable();
             $table->timestamps();
         });
     }
