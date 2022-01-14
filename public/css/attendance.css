@@ -1,0 +1,20 @@
+.daycontroller{
+    display: flex;
+    justify-content: center;
+}
+
+.day-list{
+    padding: 0px 10px;  
+}
+
+#date_txt{
+    font: bold;
+    font-size: 20px;
+    padding: 0 30px;
+}
+
+#back_btn,#next_btn{
+    background-color: #fff;
+    color: skyblue;
+    border-color: skyblue;
+}

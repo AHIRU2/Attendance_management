@@ -24,5 +24,6 @@ Route::post('/attendance/end', [AttendanceController::class, 'punchOut'])->name(
 Route::post('/attendance/reststart', [AttendanceController::class, 'restPunchIn'])->name('/attendance/reststart');
 Route::post('/attendance/restend', [AttendanceController::class, 'restPunchOut'])->name('/attendance/restend');
 Route::get('/attendance/attendance', [AttendanceController::class, 'AttendanceList'])->name('/attendance/attendance');
+Route::post('/attendance/attendance', [AttendanceController::class, 'NextDay'])->name('attendance.next');
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -20,20 +20,28 @@ class AttendanceController extends Controller
         $lastEndTime = $timestamp->end_time;
         $lastDateTime = $timestamp->start_time;
         $lastDate = date("Y-m-d", strtotime(($lastDateTime)));
+        $nextdate = date("Y-m-d", strtotime($lastDateTime . "+1 day"));
 
         //var_dump($lastDate, $date);
 
         //勤怠開始してから日付を跨いだ場合、勤怠開始時と同日の23:59:59をend_timeに挿入し、ログイン時の日時をstart_timeへ挿入
-        if ($lastEndTime == null && $lastDate != $date) {
+        while ($lastEndTime == null && $lastDate != $date) {
+
             $timestamp->update([
                 'end_time' => Carbon::parse($lastDateTime)->endOfDay()
             ]);
 
             $timestamp = Attendance::create([
                 'user_id' => $user->id,
-                'start_time' => Carbon::today(),
+                'start_time' => $nextdate . ' 00:00:00',
                 'rest_time' => '00:00:00'
             ]);
+
+            $timestamp = Attendance::where('user_id', $user->id)->latest()->first();
+            $lastEndTime = $timestamp->end_time;
+            $lastDateTime = $timestamp->start_time;
+            $lastDate = date("Y-m-d", strtotime(($lastDateTime)));
+            $nextdate = date("Y-m-d", strtotime($lastDateTime . "+1 day"));
         }
 
         return view('index');
@@ -155,28 +163,28 @@ class AttendanceController extends Controller
         return redirect()->back()->with('my_status', '休憩終了時間打刻が完了しました。');
     }
 
-    // public function AttendanceList(Request $request)
-    // {
-    //     $user = Auth::user();
-    //     $date = Carbon::today()->format("Y-m-d");
-    //     $items = Attendance::Join('users', 'attendance.user_id', '=', 'users.id')->where('attendance.user_id', '=', $user->id)->pagenate(5);
-    //     // $items = DB::table('attendance')->join('users', 'attendance.user_id', '=', 'users.id')->where('user_id', $user->id)->get();
-    //     print($items);
-    //     // $timestamps = Attendance::where('user_id', $user->id)->where('start_time', $date);
-    //     //SQL->select * from attendance where date_format(start_time,'%Y-%m-%d')=date_format(now(),'%Y-%m-%d');
-    //     // $attendance_data = Attendance::select('start_time')->get();
-    //     // $users = Attendance::Join('users', 'attendance.user_id', '=', 'users.id')->where('start_taime', $date)->get();
-    //     // $items = Attendance::Pagenate(5);
-    //     // return view('attendance', compact('users', 'date', 'items', 'attendance_date'));
-    //     // dd($timestamps);
-    //     return view('attendance', ['today' => $date], ['items', $items]);
-    // }
-
     public function AttendanceList(Request $request)
     {
         $user = Auth::user();
         $date = Carbon::today()->format("Y-m-d");
         $items = Attendance::Join('users', 'attendance.user_id', '=', 'users.id')->whereDate('start_time', $date)->Paginate(10);
+        return view('attendance', ['today' => $date], compact('items'));
+    }
+
+    public function NextDay(Request $request)
+    {
+        $nowdate = $request->input('today');
+        $dayflg = $request->input('dayflg');
+
+        if ($dayflg == "next") {
+            $date = date("Y-m-d", strtotime($nowdate . "+1 day"));
+        } else if ($dayflg == "back") {
+            $date = date("Y-m-d", strtotime($nowdate . "-1 day"));
+        }
+
+        $user = Auth::user();
+        $items = Attendance::Join('users', 'attendance.user_id', '=', 'users.id')->whereDate('start_time', $date)->Paginate(10);
+
         return view('attendance', ['today' => $date], compact('items'));
     }
 }

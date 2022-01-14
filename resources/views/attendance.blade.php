@@ -1,10 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-<div>
-    <input type="submit" name="" value="<<" id="back_btn">
-    <div id="date_txt">{{ $today }}</div>
-    <input type="submit" name="" value=">>" id="next_btn">
+<link href="{{ asset('css/attendance.css') }}" rel="stylesheet">
+
+<div　class="daycontroller">
+    <form action="attendance" method="post">
+        @csrf
+        <input type="hidden" class="form-control" id="today" name="today" value={{ $today }}>
+        <input type="hidden" class="flg" name="dayflg" value="back">
+        <input type="submit" name="" value="<" class="day-list" id="back_btn">
+    </form>
+    <div class="day-list" id="date_txt">{{ $today }}</div>
+    <form action="attendance" method="post">
+        @csrf
+        <input type="hidden" class="form-control" id="today" name="today" value={{ $today }}>
+        <input type="hidden" class="flg" name="dayflg" value="next">
+        <input type="submit" name="" value=">" class="day-list" id="next_btn">
+    </form>
 </div>
 
 <table>
