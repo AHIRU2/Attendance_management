@@ -37,7 +37,7 @@
     </tr>
     @endforeach
 </table>
-{{ $items->links()}}
+{{ $items->appends($today)->links()}}
 @endsection
 <script>
     // var cnt = 0;

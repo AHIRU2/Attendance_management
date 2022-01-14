@@ -10036,7 +10036,7 @@ h3 {
 .wrapper{
   min-height: 100vh;
   position: relative;/*←相対位置*/
-  padding-bottom: 120px;/*←footerの高さ*/
+  padding-bottom: 120px;/* ←footerの高さ */
   box-sizing: border-box;/*←全て含めてmin-height:100vhに*/
 }
 
@@ -10045,9 +10045,8 @@ footer{
   background-color: #ffffff;
   text-align: center;
   height: 40px;
-padding-top: 10px;
-
-position: absolute;/*←絶対位置*/
+  padding-top: 10px;
+  position: absolute;/*←絶対位置*/
   bottom: 0; /*下に固定*/
 }
 

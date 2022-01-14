@@ -167,7 +167,7 @@ class AttendanceController extends Controller
     {
         $user = Auth::user();
         $date = Carbon::today()->format("Y-m-d");
-        $items = Attendance::Join('users', 'attendance.user_id', '=', 'users.id')->whereDate('start_time', $date)->Paginate(10);
+        $items = Attendance::Join('users', 'attendance.user_id', '=', 'users.id')->whereDate('start_time', $date)->Paginate(5);
         return view('attendance', ['today' => $date], compact('items'));
     }
 
@@ -183,7 +183,7 @@ class AttendanceController extends Controller
         }
 
         $user = Auth::user();
-        $items = Attendance::Join('users', 'attendance.user_id', '=', 'users.id')->whereDate('start_time', $date)->Paginate(10);
+        $items = Attendance::Join('users', 'attendance.user_id', '=', 'users.id')->whereDate('start_time', $date)->Paginate(5);
 
         return view('attendance', ['today' => $date], compact('items'));
     }

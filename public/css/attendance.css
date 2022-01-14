@@ -15,6 +15,36 @@
 
 #back_btn,#next_btn{
     background-color: #fff;
-    color: skyblue;
-    border-color: skyblue;
+    color: #0023D8;
+    border: 1px solid #0023D8;
+    border-radius: 10%;
+}
+
+.pagination {
+    justify-content: center;
+  }
+
+  table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+}
+
+th,td{
+padding: 20px 5vw;
+}
+
+tr{
+   border-top: 1px solid #A2A2A2;
+}
+
+
+
+
+@media (max-width: 650px)  {
+    th,td{
+        padding-left:2vw;
+        padding-right: 2vw;
+    }
+    
 }
