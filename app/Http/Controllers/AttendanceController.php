@@ -17,34 +17,40 @@ class AttendanceController extends Controller
         $user = Auth::user();
         $date = Carbon::today()->format("Y-m-d");
         $timestamp = Attendance::where('user_id', $user->id)->latest()->first();
-        $lastEndTime = $timestamp->end_time;
-        $lastDateTime = $timestamp->start_time;
-        $lastDate = date("Y-m-d", strtotime(($lastDateTime)));
-        $nextdate = date("Y-m-d", strtotime($lastDateTime . "+1 day"));
 
-        //var_dump($lastDate, $date);
+        if ($timestamp  == null) {
+            return view('index');
+        } else {
 
-        //勤怠開始してから日付を跨いだ場合、勤怠開始時と同日の23:59:59をend_timeに挿入し、ログイン時の日時をstart_timeへ挿入
-        while ($lastEndTime == null && $lastDate != $date) {
-
-            $timestamp->update([
-                'end_time' => Carbon::parse($lastDateTime)->endOfDay()
-            ]);
-
-            $timestamp = Attendance::create([
-                'user_id' => $user->id,
-                'start_time' => $nextdate . ' 00:00:00',
-                'rest_time' => '00:00:00'
-            ]);
-
-            $timestamp = Attendance::where('user_id', $user->id)->latest()->first();
             $lastEndTime = $timestamp->end_time;
             $lastDateTime = $timestamp->start_time;
             $lastDate = date("Y-m-d", strtotime(($lastDateTime)));
             $nextdate = date("Y-m-d", strtotime($lastDateTime . "+1 day"));
-        }
 
-        return view('index');
+            //var_dump($lastDate, $date);
+
+            //勤怠開始してから日付を跨いだ場合、勤怠開始時と同日の23:59:59をend_timeに挿入し、ログイン時の日時をstart_timeへ挿入
+            while ($lastEndTime == null && $lastDate != $date) {
+
+                $timestamp->update([
+                    'end_time' => Carbon::parse($lastDateTime)->endOfDay()
+                ]);
+
+                $timestamp = Attendance::create([
+                    'user_id' => $user->id,
+                    'start_time' => $nextdate . ' 00:00:00',
+                    'rest_time' => '00:00:00'
+                ]);
+
+                $timestamp = Attendance::where('user_id', $user->id)->latest()->first();
+                $lastEndTime = $timestamp->end_time;
+                $lastDateTime = $timestamp->start_time;
+                $lastDate = date("Y-m-d", strtotime(($lastDateTime)));
+                $nextdate = date("Y-m-d", strtotime($lastDateTime . "+1 day"));
+            }
+
+            return view('index');
+        }
     }
 
 
