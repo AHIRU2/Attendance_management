@@ -70,7 +70,7 @@
                             <div class="link-register-label">
                                 <div class="link-register">
                                     アカウントをお持ちでない方はこちら
-                                    <a href="http://127.0.0.1:8001/register" class="nav-link">会員登録</a>
+                                    <a href="{{ route('register') }}" class="nav-link">会員登録</a>
                                 </div>
                             </div>
 
