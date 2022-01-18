@@ -44,6 +44,44 @@
         </li>
     </ul>
     <script>
+        window.onload = function clickBtn1() {
+            const startFlg = '{{$startFlg}}'
+            const endFlg = '{{$endFlg}}'
+            const startRestFlg = '{{$startRestFlg}}'
+            const endRestFlg = '{{$endRestFlg}}'
+
+            if ($startFlg) {
+                document.getElementsById("btn_punchin").removeAttribute("disabled");
+                document.getElementsById("btn_punchin").style.color = "black";
+            } else {
+                document.getElementsById("btn_punchin").setAttribute("disabled", true);
+                document.getElementsById("btn_punchin").style.color = "white";
+            }
+
+            if ($endFlg) {
+                document.getElementsById("btn_punchout").removeAttribute("disabled");
+                document.getElementsById("btn_punchout").style.color = "black";
+            } else {
+                document.getElementsById("btn_punchout").setAttribute("disabled", true);
+                document.getElementsById("btn_punchout").style.color = "white";
+            }
+
+            if ($startRestFlg) {
+                document.getElementsById("btn_rest_punchin").removeAttribute("disabled");
+                document.getElementsById("btn_rest_punchin").style.color = "black";
+            } else {
+                document.getElementsById("btn_rest_punchin").setAttribute("disabled", true);
+                document.getElementsById("btn_rest_punchin").style.color = "white";
+            }
+
+            if ($endRestFlg) {
+                document.getElementsById("btn_rest_punchout").removeAttribute("disabled");
+                document.getElementsById("btn_rest_punchout").style.color = "black";
+            } else {
+                document.getElementsById("btn_rest_punchout").setAttribute("disabled", true);
+                document.getElementsById("btn_rest_punchout").style.color = "white";
+            }
+        }
         // function setPunchinButton() {
         //     let setbuttonPunchinOff = $('[id^="btn_punchin"]');
         //     for (i = 0; i < setbuttonPunchinOff.length; i++) {
@@ -66,9 +104,9 @@
         //     }
         // }
 
-        const startWorking = document.getElementById('btn_punchin');
-        const endWorking = document.getElementById('btn_punchout');
-        const startBrake = document.getElementById('btn_rest_punchin');
-        const endBrake = document.getElementById('btn_rest_punchou');
+        // const startWorking = document.getElementById('btn_punchin');
+        // const endWorking = document.getElementById('btn_punchout');
+        // const startBrake = document.getElementById('btn_rest_punchin');
+        // const endBrake = document.getElementById('btn_rest_punchou');
     </script>
     @endsection
