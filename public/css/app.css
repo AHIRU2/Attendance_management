@@ -10048,6 +10048,7 @@ footer{
   padding-top: 10px;
   position: absolute;/*←絶対位置*/
   bottom: 0; /*下に固定*/
+  z-index: 10;
 }
 
 

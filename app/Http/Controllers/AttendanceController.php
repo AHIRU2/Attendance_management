@@ -17,17 +17,44 @@ class AttendanceController extends Controller
         $user = Auth::user();
         $date = Carbon::today()->format("Y-m-d");
         $timestamp = Attendance::where('user_id', $user->id)->latest()->first();
+        $rest = Rest::where('user_id', $user->id)->latest()->first();
 
         if ($timestamp  == null) {
-            return view('index');
+            $startFlg = "true";
+            $endFlg = "false";
+            $startRestFlg = "false";
+            $endRestFlg = "false";
+
+            return view('index', compact('startFlg', 'endFlg', 'startRestFlg', 'endRestFlg'));
+        } else if ($timestamp->start_time != null && $date == date("Y-m-d", strtotime($timestamp->start_time)) && $timestamp->end_time == null) {
+            if ($date != date("Y-m-d", strtotime($rest->start_time))) {
+                $startFlg = "false";
+                $endFlg = "true";
+                $startRestFlg = "true";
+                $endRestFlg = "false";
+
+                return view('index', compact('startFlg', 'endFlg', 'startRestFlg', 'endRestFlg'));
+            } else if ($date == date("Y-m-d", strtotime($rest->start_time)) && $rest->end_time == null) {
+                $startFlg = "false";
+                $endFlg = "true";
+                $startRestFlg = "false";
+                $endRestFlg = "true";
+
+                return view('index', compact('startFlg', 'endFlg', 'startRestFlg', 'endRestFlg'));
+            } else if ($date == date("Y-m-d", strtotime($rest->start_time)) && $rest->end_time != null) {
+                $startFlg = "false";
+                $endFlg = "true";
+                $startRestFlg = "true";
+                $endRestFlg = "false";
+
+                return view('index', compact('startFlg', 'endFlg', 'startRestFlg', 'endRestFlg'));
+            }
         } else {
 
             $lastEndTime = $timestamp->end_time;
             $lastDateTime = $timestamp->start_time;
             $lastDate = date("Y-m-d", strtotime(($lastDateTime)));
             $nextdate = date("Y-m-d", strtotime($lastDateTime . "+1 day"));
-
-            //var_dump($lastDate, $date);
 
             //勤怠開始してから日付を跨いだ場合、勤怠開始時と同日の23:59:59をend_timeに挿入し、ログイン時の日時をstart_timeへ挿入
             while ($lastEndTime == null && $lastDate != $date) {
@@ -49,7 +76,12 @@ class AttendanceController extends Controller
                 $nextdate = date("Y-m-d", strtotime($lastDateTime . "+1 day"));
             }
 
-            return view('index');
+            $startFlg = "false";
+            $endFlg = "true";
+            $startRestFlg = "true";
+            $endRestFlg = "false";
+
+            return view('index', compact('startFlg', 'endFlg', 'startRestFlg', 'endRestFlg'));
         }
     }
 
@@ -80,7 +112,13 @@ class AttendanceController extends Controller
             'rest_time' => '00:00:00'
         ]);
 
-        return redirect()->back()->with('my_status', '出勤打刻が完了しました。');
+        $startFlg = "false";
+        $endFlg = "true";
+        $startRestFlg = "true";
+        $endRestFlg = "false";
+
+
+        return redirect()->back()->with('my_status', '出勤打刻が完了しました。', compact('startFlg', 'endFlg', 'startRestFlg', 'endRestFlg'));
     }
 
     //退勤処理
@@ -104,7 +142,12 @@ class AttendanceController extends Controller
                 'attendance_time' => $data
             ]);
 
-            return redirect()->back()->with('my_status', '退勤打刻が完了しました。');
+            $startFlg = "false";
+            $endFlg = "false";
+            $startRestFlg = "false";
+            $endRestFlg = "false";
+
+            return redirect()->back()->with('my_status', '退勤打刻が完了しました。', compact('startFlg', 'endFlg', 'startRestFlg', 'endRestFlg'));
         }
     }
 
@@ -122,7 +165,12 @@ class AttendanceController extends Controller
             'start_time' => Carbon::now(),
         ]);
 
-        return redirect()->back()->with('my_status', '休憩開始打刻が完了しました。');
+        $startFlg = "false";
+        $endFlg = "true";
+        $startRestFlg = "false";
+        $endRestFlg = "true";
+
+        return redirect()->back()->with('my_status', '休憩開始打刻が完了しました。', compact('startFlg', 'endFlg', 'startRestFlg', 'endRestFlg'));
     }
 
     //休憩終了処理
@@ -166,15 +214,25 @@ class AttendanceController extends Controller
             'rest_time' => $sum[0]->sum
         ]);
 
-        return redirect()->back()->with('my_status', '休憩終了時間打刻が完了しました。');
+        $startFlg = "false";
+        $endFlg = "true";
+        $startRestFlg = "true";
+        $endRestFlg = "false";
+
+        return redirect()->back()->with('my_status', '休憩終了時間打刻が完了しました。', compact('startFlg', 'endFlg', 'startRestFlg', 'endRestFlg'));
     }
 
     public function AttendanceList(Request $request)
     {
+        if ($request->page) {
+            $date = $request->date; //現在指定している日付を取得
+        } else {
+            $date = Carbon::today()->format("Y-m-d");
+        }
         $user = Auth::user();
-        $date = Carbon::today()->format("Y-m-d");
         $items = Attendance::Join('users', 'attendance.user_id', '=', 'users.id')->whereDate('start_time', $date)->Paginate(5);
-        return view('attendance', ['today' => $date], compact('items'));
+        $items->appends(compact('date')); //日付を渡す
+        return view('attendance', ['today' => $date], compact('date', 'items'));
     }
 
     public function NextDay(Request $request)
@@ -190,7 +248,7 @@ class AttendanceController extends Controller
 
         $user = Auth::user();
         $items = Attendance::Join('users', 'attendance.user_id', '=', 'users.id')->whereDate('start_time', $date)->Paginate(5);
-
-        return view('attendance', ['today' => $date], compact('items'));
+        $items->appends(compact('date')); // 日付を渡す
+        return view('attendance', ['today' => $date], compact('date', 'items'));
     }
 }
