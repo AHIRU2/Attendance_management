@@ -20,34 +20,54 @@ class AttendanceController extends Controller
         $rest = Rest::where('user_id', $user->id)->latest()->first();
 
         if ($timestamp  == null) {
-            $startFlg = "true";
-            $endFlg = "false";
-            $startRestFlg = "false";
-            $endRestFlg = "false";
+            $startFlg = true;
+            $endFlg = false;
+            $startRestFlg = false;
+            $endRestFlg = false;
 
-            return view('index', compact('startFlg', 'endFlg', 'startRestFlg', 'endRestFlg'));
+            $startFlg_json = json_encode($startFlg);
+            $endFlg_json = json_encode($endFlg);
+            $startRestFlg_json = json_encode($startRestFlg);
+            $endRestFlg_json = json_encode($endRestFlg);
+
+            return view('index', compact('startFlg_json', 'endFlg_json', 'startRestFlg_json', 'endRestFlg_json'));
         } else if ($timestamp->start_time != null && $date == date("Y-m-d", strtotime($timestamp->start_time)) && $timestamp->end_time == null) {
             if ($date != date("Y-m-d", strtotime($rest->start_time))) {
-                $startFlg = "false";
-                $endFlg = "true";
-                $startRestFlg = "true";
-                $endRestFlg = "false";
+                $startFlg = false;
+                $endFlg = true;
+                $startRestFlg = true;
+                $endRestFlg = false;
 
-                return view('index', compact('startFlg', 'endFlg', 'startRestFlg', 'endRestFlg'));
+                $startFlg_json = json_encode($startFlg);
+                $endFlg_json = json_encode($endFlg);
+                $startRestFlg_json = json_encode($startRestFlg);
+                $endRestFlg_json = json_encode($endRestFlg);
+
+                return view('index', compact('startFlg_json', 'endFlg_json', 'startRestFlg_json', 'endRestFlg_json'));
             } else if ($date == date("Y-m-d", strtotime($rest->start_time)) && $rest->end_time == null) {
-                $startFlg = "false";
-                $endFlg = "true";
-                $startRestFlg = "false";
-                $endRestFlg = "true";
+                $startFlg = false;
+                $endFlg = true;
+                $startRestFlg = false;
+                $endRestFlg = true;
 
-                return view('index', compact('startFlg', 'endFlg', 'startRestFlg', 'endRestFlg'));
+                $startFlg_json = json_encode($startFlg);
+                $endFlg_json = json_encode($endFlg);
+                $startRestFlg_json = json_encode($startRestFlg);
+                $endRestFlg_json = json_encode($endRestFlg);
+
+                return view('index', compact('startFlg_json', 'endFlg_json', 'startRestFlg_json', 'endRestFlg_json'));
             } else if ($date == date("Y-m-d", strtotime($rest->start_time)) && $rest->end_time != null) {
-                $startFlg = "false";
-                $endFlg = "true";
-                $startRestFlg = "true";
-                $endRestFlg = "false";
+                $startFlg = false;
+                $endFlg = true;
+                $startRestFlg = true;
+                $endRestFlg = false;
 
-                return view('index', compact('startFlg', 'endFlg', 'startRestFlg', 'endRestFlg'));
+                $startFlg_json = json_encode($startFlg);
+                $endFlg_json = json_encode($endFlg);
+                $startRestFlg_json = json_encode($startRestFlg);
+                $endRestFlg_json = json_encode($endRestFlg);
+
+                return view('index', compact('startFlg_json', 'endFlg_json', 'startRestFlg_json', 'endRestFlg_json'));
             }
         } else {
 
@@ -76,12 +96,17 @@ class AttendanceController extends Controller
                 $nextdate = date("Y-m-d", strtotime($lastDateTime . "+1 day"));
             }
 
-            $startFlg = "false";
-            $endFlg = "true";
-            $startRestFlg = "true";
-            $endRestFlg = "false";
+            $startFlg = false;
+            $endFlg = true;
+            $startRestFlg = true;
+            $endRestFlg = false;
 
-            return view('index', compact('startFlg', 'endFlg', 'startRestFlg', 'endRestFlg'));
+            $startFlg_json = json_encode($startFlg);
+            $endFlg_json = json_encode($endFlg);
+            $startRestFlg_json = json_encode($startRestFlg);
+            $endRestFlg_json = json_encode($endRestFlg);
+
+            return view('index', compact('startFlg_json', 'endFlg_json', 'startRestFlg_json', 'endRestFlg_json'));
         }
     }
 
@@ -112,13 +137,17 @@ class AttendanceController extends Controller
             'rest_time' => '00:00:00'
         ]);
 
-        $startFlg = "false";
-        $endFlg = "true";
-        $startRestFlg = "true";
-        $endRestFlg = "false";
+        $startFlg = false;
+        $endFlg = true;
+        $startRestFlg = true;
+        $endRestFlg = false;
 
+        $startFlg_json = json_encode($startFlg);
+        $endFlg_json = json_encode($endFlg);
+        $startRestFlg_json = json_encode($startRestFlg);
+        $endRestFlg_json = json_encode($endRestFlg);
 
-        return redirect()->back()->with('my_status', '出勤打刻が完了しました。', compact('startFlg', 'endFlg', 'startRestFlg', 'endRestFlg'));
+        return redirect()->back()->with('my_status', '出勤打刻が完了しました。', compact('startFlg_json', 'endFlg_json', 'startRestFlg_json', 'endRestFlg_json'));
     }
 
     //退勤処理
@@ -142,12 +171,17 @@ class AttendanceController extends Controller
                 'attendance_time' => $data
             ]);
 
-            $startFlg = "false";
-            $endFlg = "false";
-            $startRestFlg = "false";
-            $endRestFlg = "false";
+            $startFlg = false;
+            $endFlg = false;
+            $startRestFlg = false;
+            $endRestFlg = false;
 
-            return redirect()->back()->with('my_status', '退勤打刻が完了しました。', compact('startFlg', 'endFlg', 'startRestFlg', 'endRestFlg'));
+            $startFlg_json = json_encode($startFlg);
+            $endFlg_json = json_encode($endFlg);
+            $startRestFlg_json = json_encode($startRestFlg);
+            $endRestFlg_json = json_encode($endRestFlg);
+
+            return redirect()->back()->with('my_status', '退勤打刻が完了しました。', compact('startFlg_json', 'endFlg_json', 'startRestFlg_json', 'endRestFlg_json'));
         }
     }
 
@@ -165,12 +199,17 @@ class AttendanceController extends Controller
             'start_time' => Carbon::now(),
         ]);
 
-        $startFlg = "false";
-        $endFlg = "true";
-        $startRestFlg = "false";
-        $endRestFlg = "true";
+        $startFlg = false;
+        $endFlg = true;
+        $startRestFlg = false;
+        $endRestFlg = true;
 
-        return redirect()->back()->with('my_status', '休憩開始打刻が完了しました。', compact('startFlg', 'endFlg', 'startRestFlg', 'endRestFlg'));
+        $startFlg_json = json_encode($startFlg);
+        $endFlg_json = json_encode($endFlg);
+        $startRestFlg_json = json_encode($startRestFlg);
+        $endRestFlg_json = json_encode($endRestFlg);
+
+        return redirect()->back()->with('my_status', '休憩開始打刻が完了しました。', compact('startFlg_json', 'endFlg_json', 'startRestFlg_json', 'endRestFlg_json'));
     }
 
     //休憩終了処理
@@ -214,12 +253,12 @@ class AttendanceController extends Controller
             'rest_time' => $sum[0]->sum
         ]);
 
-        $startFlg = "false";
-        $endFlg = "true";
-        $startRestFlg = "true";
-        $endRestFlg = "false";
+        $startFlg = false;
+        $endFlg = true;
+        $startRestFlg = true;
+        $endRestFlg = false;
 
-        return redirect()->back()->with('my_status', '休憩終了時間打刻が完了しました。', compact('startFlg', 'endFlg', 'startRestFlg', 'endRestFlg'));
+        return redirect()->back()->with('my_status', '休憩終了時間打刻が完了しました。', compact('startFlg_json', 'endFlg_json', 'startRestFlg_json', 'endRestFlg_json'));
     }
 
     public function AttendanceList(Request $request)
