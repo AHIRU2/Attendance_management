@@ -147,6 +147,8 @@ class AttendanceController extends Controller
         $startRestFlg_json = json_encode($startRestFlg);
         $endRestFlg_json = json_encode($endRestFlg);
 
+
+
         return redirect()->back()->with('my_status', '出勤打刻が完了しました。', compact('startFlg_json', 'endFlg_json', 'startRestFlg_json', 'endRestFlg_json'));
     }
 
@@ -257,6 +259,11 @@ class AttendanceController extends Controller
         $endFlg = true;
         $startRestFlg = true;
         $endRestFlg = false;
+
+        $startFlg_json = json_encode($startFlg);
+        $endFlg_json = json_encode($endFlg);
+        $startRestFlg_json = json_encode($startRestFlg);
+        $endRestFlg_json = json_encode($endRestFlg);
 
         return redirect()->back()->with('my_status', '休憩終了時間打刻が完了しました。', compact('startFlg_json', 'endFlg_json', 'startRestFlg_json', 'endRestFlg_json'));
     }

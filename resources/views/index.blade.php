@@ -47,39 +47,39 @@
             var startRestFlg = JSON.parse('<?php echo $startRestFlg_json; ?>');
             var endRestFlg = JSON.parse('<?php echo $endRestFlg_json; ?>');
 
-            console.log('値の引き渡し確認_endFlg:')
-            console.log(endFlg);
+            console.log('値の引き渡し確認_startRestFlg:')
+            console.log(startRestFlg);
 
             if (startFlg == true) {
-                document.getElementsById("btn_punchin").removeAttribute("disabled");
-                document.getElementsById("btn_punchin").style.color = "black";
+                document.getElementById("btn_punchin").removeAttribute("disabled");
+                document.getElementById("btn_punchin").style.color = "black";
             } else {
-                document.getElementsById("btn_punchin").setAttribute("disabled", true);
-                document.getElementsById("btn_punchin").style.color = "white";
+                document.getElementById("btn_punchin").setAttribute("disabled", true);
+                document.getElementById("btn_punchin").style.color = "white";
             }
 
             if (endFlg == true) {
-                document.getElementsById("btn_punchout").removeAttribute("disabled");
-                document.getElementsById("btn_punchout").style.color = "black";
+                document.getElementById("btn_punchout").removeAttribute("disabled");
+                document.getElementById("btn_punchout").style.color = "black";
             } else {
-                document.getElementsById("btn_punchout").setAttribute("disabled", true);
-                document.getElementsById("btn_punchout").style.color = "white";
+                document.getElementById("btn_punchout").setAttribute("disabled", true);
+                document.getElementById("btn_punchout").style.color = "white";
             }
 
             if (startRestFlg == true) {
-                document.getElementsById("btn_rest_punchin").removeAttribute("disabled");
-                document.getElementsById("btn_rest_punchin").style.color = "black";
+                document.getElementById("btn_rest_punchin").removeAttribute("disabled");
+                document.getElementById("btn_rest_punchin").style.color = "black";
             } else {
-                document.getElementsById("btn_rest_punchin").setAttribute("disabled", true);
-                document.getElementsById("btn_rest_punchin").style.color = "white";
+                document.getElementById("btn_rest_punchin").setAttribute("disabled", true);
+                document.getElementById("btn_rest_punchin").style.color = "white";
             }
 
             if (endRestFlg == true) {
-                document.getElementsById("btn_rest_punchout").removeAttribute("disabled");
-                document.getElementsById("btn_rest_punchout").style.color = "black";
+                document.getElementById("btn_rest_punchout").removeAttribute("disabled");
+                document.getElementById("btn_rest_punchout").style.color = "black";
             } else {
-                document.getElementsById("btn_rest_punchout").setAttribute("disabled", true);
-                document.getElementsById("btn_rest_punchout").style.color = "white";
+                document.getElementById("btn_rest_punchout").setAttribute("disabled", true);
+                document.getElementById("btn_rest_punchout").style.color = "white";
             }
         }
     </script>
