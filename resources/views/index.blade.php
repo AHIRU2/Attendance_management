@@ -2,7 +2,6 @@
 
 @section('content')
 <link href="{{ asset('css/index.css') }}" rel="stylesheet">
-<!-- <script src="{{ asset('js/index.js') }}"> -->
 <script>
     window.onload = function clickBtn1() {
         var startFlg = JSON.parse('<?php echo $startFlg_json; ?>');
@@ -17,8 +16,9 @@
             document.getElementById("btn_punchin").removeAttribute("disabled");
             document.getElementById("btn_punchin").style.color = "black";
         } else {
-            document.getElementById("btn_punchin").setAttribute("disabled", true);
-            document.getElementById("btn_punchin").style.color = "white";
+            // document.getElementById("btn_punchin").setAttribute("disabled", true);
+            document.getElementById("btn_punchin").disabled = true;
+            document.getElementById("btn_punchin").style.color = "gray";
         }
 
         if (endFlg == true) {
@@ -26,7 +26,7 @@
             document.getElementById("btn_punchout").style.color = "black";
         } else {
             document.getElementById("btn_punchout").setAttribute("disabled", true);
-            document.getElementById("btn_punchout").style.color = "white";
+            document.getElementById("btn_punchout").style.color = "gray";
         }
 
         if (startRestFlg == true) {
@@ -34,7 +34,7 @@
             document.getElementById("btn_rest_punchin").style.color = "black";
         } else {
             document.getElementById("btn_rest_punchin").setAttribute("disabled", true);
-            document.getElementById("btn_rest_punchin").style.color = "white";
+            document.getElementById("btn_rest_punchin").style.color = "gray";
         }
 
         if (endRestFlg == true) {
@@ -42,7 +42,7 @@
             document.getElementById("btn_rest_punchout").style.color = "black";
         } else {
             document.getElementById("btn_rest_punchout").setAttribute("disabled", true);
-            document.getElementById("btn_rest_punchout").style.color = "white";
+            document.getElementById("btn_rest_punchout").style.color = "gray";
         }
     }
 </script>
@@ -85,3 +85,5 @@
         </li>
     </ul>
     @endsection
+    <!-- @push('js') -->
+    <!-- <script src="{{ asset('js/index.js') }}"> -->

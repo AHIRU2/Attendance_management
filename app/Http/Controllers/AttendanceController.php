@@ -19,7 +19,9 @@ class AttendanceController extends Controller
         $timestamp = Attendance::where('user_id', $user->id)->latest()->first();
         $rest = Rest::where('user_id', $user->id)->latest()->first();
 
+
         if ($timestamp  == null) {
+            // 初めてログインするユーザー
             $startFlg = true;
             $endFlg = false;
             $startRestFlg = false;
@@ -32,7 +34,9 @@ class AttendanceController extends Controller
 
             return view('index', compact('startFlg_json', 'endFlg_json', 'startRestFlg_json', 'endRestFlg_json'));
         } else if ($timestamp->start_time != null && $date == date("Y-m-d", strtotime($timestamp->start_time)) && $timestamp->end_time == null) {
+            //当日勤怠ボタンを押していた場合
             if ($date != date("Y-m-d", strtotime($rest->start_time))) {
+                //今日休憩がまだ押されていない場合
                 $startFlg = false;
                 $endFlg = true;
                 $startRestFlg = true;
@@ -45,6 +49,7 @@ class AttendanceController extends Controller
 
                 return view('index', compact('startFlg_json', 'endFlg_json', 'startRestFlg_json', 'endRestFlg_json'));
             } else if ($date == date("Y-m-d", strtotime($rest->start_time)) && $rest->end_time == null) {
+                //当日休憩開始が押されていた場合
                 $startFlg = false;
                 $endFlg = true;
                 $startRestFlg = false;
@@ -57,6 +62,7 @@ class AttendanceController extends Controller
 
                 return view('index', compact('startFlg_json', 'endFlg_json', 'startRestFlg_json', 'endRestFlg_json'));
             } else if ($date == date("Y-m-d", strtotime($rest->start_time)) && $rest->end_time != null) {
+                //当日休憩開始＆休憩終了が押されていた場合
                 $startFlg = false;
                 $endFlg = true;
                 $startRestFlg = true;
@@ -69,8 +75,34 @@ class AttendanceController extends Controller
 
                 return view('index', compact('startFlg_json', 'endFlg_json', 'startRestFlg_json', 'endRestFlg_json'));
             }
-        } else {
+        } else if ($date != date("Y-m-d", strtotime($rest->start_time)) && $timestamp->end_time != null) {
+            //初回ログインじゃないユーザーで、当日初めて勤怠ボタンを押す状態
+            $startFlg = true;
+            $endFlg = false;
+            $startRestFlg = false;
+            $endRestFlg = false;
 
+            $startFlg_json = json_encode($startFlg);
+            $endFlg_json = json_encode($endFlg);
+            $startRestFlg_json = json_encode($startRestFlg);
+            $endRestFlg_json = json_encode($endRestFlg);
+
+            return view('index', compact('startFlg_json', 'endFlg_json', 'startRestFlg_json', 'endRestFlg_json'));
+        } else if ($date == date("Y-m-d", strtotime($rest->start_time)) && $timestamp->end_time != null) {
+            //当日の勤怠開始＆退勤ボタンが押された場合
+            $startFlg = false;
+            $endFlg = false;
+            $startRestFlg = false;
+            $endRestFlg = false;
+
+            $startFlg_json = json_encode($startFlg);
+            $endFlg_json = json_encode($endFlg);
+            $startRestFlg_json = json_encode($startRestFlg);
+            $endRestFlg_json = json_encode($endRestFlg);
+
+            return view('index', compact('startFlg_json', 'endFlg_json', 'startRestFlg_json', 'endRestFlg_json'));
+        } else if ($timestamp->start_time != null && $date != date("Y-m-d", strtotime($timestamp->start_time)) && $timestamp->end_time == null) {
+            //前日勤怠開始ボタンを押したまま退勤ボタンを押さずに日付を跨いだ場合
             $lastEndTime = $timestamp->end_time;
             $lastDateTime = $timestamp->start_time;
             $lastDate = date("Y-m-d", strtotime(($lastDateTime)));
